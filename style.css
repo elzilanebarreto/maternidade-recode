@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+  box-sizing: border-box;
+}
+
+#imagemPrincipal img {
+    width: 100%;
+    height: auto;
+  }
+
+.conteiner{
+    margin: 25px;
+  }
+
+#sub-paragrafo{
+    max-width: 80%;
+    background-color: #CD8054;
+    display: flex;
+
+}
+
+#sub-paragrafo p{
+    justify-content: center;
+    text-align: center;
+}
+
+  .subtitulos-principais{
+    font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 25px;
+  text-transform: uppercase;
+  }
