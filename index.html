@@ -1,141 +1,160 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maternidade - Rocode</title>
     <link rel="stylesheet" href="style.css" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
 </head>
-
 
 <body>
     <!-- Início do cabeçalho -->
     <header class="cabecalho">
+        <!-- Início do container do cabeçalho -->
+        <div class="container-header">
+            <div class="logo">
+                <img class="logo" src="imagens/logo3.png" alt="" srcset="" />
+            </div>
+            <!-- Fim do logo -->
 
-      <!-- Início do conatainer do cabeçalho -->
-      <div class="container-header">
-
-        <!-- Início do logo -->
-        <div class="logo">
-          <!-- Imagem com link-->
+            <!-- Início da barra de menu -->
+            <nav class="navbar">
+                <a href="#">Início</a>
+                <a href="#">Desafios da Maternidade</a>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Contatos</a>
+            </nav>
+            <!-- Fim da barra de menu -->
         </div>
-        <!-- Fim do logo -->
-
-        <!-- Início da barra de menu -->
-        <nav class="navbar">
-          <a href="#">Início</a>
-          <a href="#">Desafios da Maternidade</a>
-          <a href="#">Sobre Nós</a>
-          <a href="#">Contatos</a>
-        </nav>
-        <!-- Fim da barra de menu -->
-
-        <!-- Início do banner/Se houver-->
-        <div class="banner"></div>
-        <!-- Fim do banner -->
-
-      </div>
-      <!-- Fim do container do cabeçalho -->
-
+        <!-- Fim do container do cabeçalho -->
     </header>
     <!-- Fim do cabeçalho -->
 
+    <!-- Início do banner/Se houver-->
+    <div class="banner">
+        <img src="imagens/Renascer Mulher.png" alt="" srcset="" />
+    </div>
+    <!-- Fim do banner -->
+
     <!-- Início do conteúdo -->
     <main class="container-main">
-
         <!-- Início da seção do sobre nós -->
         <section class="sobre">
+            <!-- Início do nosso objetivo -->
+            <div class="sobre-objetivo">
+                <h2>Sobre Nós</h2>
+                <div class="divider"></div>
+                <p>
+                    Nosso objetivo é criar um espaço acolhedor para compartilhar
+                    informações e experiências sobre as dificuldades da gravidez,
+                    desafios e dicas da maternidade. Queremos oferecer apoio para que
+                    você se sinta ouvida e encorajada a enfrentar os altos e baixos
+                    dessa fase tão especial. Além disso, disponibilizamos conteúdos
+                    sobre cuidados com a saúde durante a gestação e orientações práticas
+                    para o dia a dia com o bebê.
+                </p>
 
-        <!-- Início do nosso objetivo -->
-        <div class="sobre-objetivo">
-            <h2>Sobre Nós</h2>
-            <p>
-            Nosso objetivo é oferecer um espaço acolhedor para compartilhar
-            informações e experiências sobre dificuldades da gravidez, desafios
-            e dicas da maternidade. Aqui você encontrará apoio para superar
-            esses momentos.
-            </p>
-
-            <!-- Botão de saiba mais -->
-            <button>
-            <a href="#">Saiba Mais</a>
-            </button>
-
-        </div>
-        <!-- Fim do nosso objetivo -->
-            
+                <!-- Botão de saiba mais -->
+                <button>
+                    <a href="#">Saiba Mais</a>
+                </button>
+            </div>
+            <!-- Fim do nosso objetivo -->
         </section>
         <!-- Fim da seção do sobre nós -->
-        
+
         <!-- Início da parte do conteúdo (Hirislayne) -->
-        <div class="conteiner">
-            <div class="division">
-                <div class="left">
-                    <h2><b>Gravidez</b> <br> "etapas e cuidados"</h2>
+        <div class="conteiner-principal-textos">
+            <section class="secoes-principais">
+                <div class="gravidez-etapas">
+                    <h2 class="subtitulos-principais">
+                        <b>Gravidez</b> "etapas e cuidados"
+                    </h2>
+                    <div class="divider"></div>
                     <p>
-                        A gravidez é uma jornada de transformações.
-                        Cada etapa traz sintomas comuns, como náuseas, fadiga e mudanças de humor, que podem ser aliviados com cuidados simples. 
-                        Manter uma alimentação equilibrada, exercícios leves e atenção à saúde mental são essenciais para garantir o bem-estar da mãe e do bebê.
-                        Saiba mais sobre como cuidar de você em cada fase para uma gestão saudável!
+                        A gravidez é uma jornada de transformações. Cada etapa traz
+                        sintomas comuns, como náuseas, fadiga e mudanças de humor, que
+                        podem ser aliviados com cuidados simples. Manter uma alimentação
+                        equilibrada, exercícios leves e atenção à saúde mental são
+                        essenciais para garantir o bem-estar da mãe e do bebê. Saiba mais
+                        sobre como cuidar de você em cada fase para uma gestão saudável!
                     </p>
-                    <a href="gravidez">Sintomas e Cuidados</a>
+                    <button><a href="gravidez">Sintomas e Cuidados</a></button>
                 </div>
+            </section>
 
-                <div class="right">
-                    <h2><b>Maternidade</b> <br> primeiros passos </h2>
-                    <p>
-                        A chegada do bebê traz alegrias, mas também muitos desafios. Desde a amamentação e cuidados com a higiene até o sono e as novas rotinas, 
-                        cada detalhe faz parte desse aprendizado. 
-                        O puerpério pode ser um período intenso, e contar com apoio emocional faz toda a diferença para as mães de primeira viagem.
-                        Para você, que busca dicas e orientações para cuidar do seu bebê e de si mesma com mais confiança.
-                    </p>
-                    <a href="maternidade">Dicas e Apoio</a>
-                </div>
-                
-            </div>
+                <section class="secoes-principais">
+                    <div class="maternidade">
+                        <h2 class="subtitulos-principais">
+                            <b>Maternidade</b> <br />
+                            primeiros passos
+                        </h2>
+                        <div class="divider"></div>
+                        <p>
+                            A chegada do bebê traz alegrias, mas também muitos desafios. Desde
+                            a amamentação e cuidados com a higiene até o sono e as novas
+                            rotinas, cada detalhe faz parte desse aprendizado. O puerpério
+                            pode ser um período intenso, e contar com apoio emocional faz toda
+                            a diferença para as mães de primeira viagem. Para você, que busca
+                            dicas e orientações para cuidar do seu bebê e de si mesma com mais
+                            confiança.
+                        </p>
+                        <button><a href="maternidade">Dicas e Apoio</a></button>
+                    </div>
+                </section>
         </div>
-        <!-- Fim da parte do conteúdo (Hirislayne) -->
-
+        <div class="images-container">
+            <div class="multi-banner-images-4">
+                <div class="images-item">
+                    <img src="imagens/gravidez.jpg" alt="Imagem 1" />
+                </div>
+                <div class="images-item">
+                    <img src="imagens/cuidados-gestacao.jpg" alt="Imagem 2" />
+                </div>
+                <div class="images-item">
+                    <img src="imagens/maternidade.png" alt="Imagem 3" />
+                </div>
+                <div class="images-item">
+                    <img src="imagens/bebe-amamentacao.png" alt="Imagem 4" />
+                </div>
+                </section>
+            </div>
+            <!-- Fim da parte do conteúdo (Hirislayne) -->
     </main>
     <!-- Fim do conteúdo -->
-    
-    <hr> <!--Linha de término do conteúdo (temporário)-->
 
     <!-- Início do Rodapé -->
     <footer class="rodape">
-        
         <!-- Início do container do rodapé -->
         <div class="container-rodape">
-            
             <div class="rede-socais"></div>
             <div class="contados"></div>
 
             <!-- Início dos direitos e termos -->
             <div class="direitos">
-                
                 <div id="direito-criado">
-                    &copy; 2025 | Criado pela <span>SQUAD - 12</span> | Todos os direitos reservados
+                    &copy; 2025 | Criado pela <span>SQUAD - 12</span> | Todos os
+                    direitos reservados
                 </div>
-                
+
                 <div id="termos-privacidade">
-                    <a href="#">Privacidade e Política</a> 
-                    <br> <!--Quebra de linha temporário-->
+                    <a href="#">Privacidade e Política</a>
+                    <br />
+                    <!--Quebra de linha temporário-->
                     <a href="#">Termos</a>
                 </div>
-                
             </div>
             <!-- Fim dos direitos e termos -->
-
         </div>
-        <!-- Fim do container do rodapé -->  
+        <!-- Fim do container do rodapé -->
     </footer>
     <!-- Fim do Rodapé -->
-
 </body>
 
 </html>
