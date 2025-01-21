@@ -198,3 +198,78 @@ footer a{
   color: #976b48;
   font-weight: bold;
 }
+
+/* --------------------Página Sobre----------------- */
+.equipe, .valores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  padding: 50px;
+  margin: 30px auto;
+  background-color: #f6e2d4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  max-width: 90%;
+}
+
+.equipe-objetivo, .valores-objetivo{
+  max-width: 600px;
+}
+
+.equipe-objetivo h2 {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 2rem;
+  line-height: 1.5;
+  color: #976b48;
+  font-weight: 700;
+}
+
+.valores-objetivo h2 {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 2rem;
+  line-height: 1.5;
+  color: #976b48;
+  font-weight: 700;
+}
+
+.valores-objetivo h3 {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #976b48;
+  font-weight: 700;
+}
+
+
+.valor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: white;
+  max-width: 600px;
+}
+
+.valor-card {
+  display: flex;
+  flex-wrap: wrap;
+  width: 25%;
+  margin-top: 2%;
+}
+
+.valor-cards img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  filter: grayscale(100%);
+}
