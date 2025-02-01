@@ -273,3 +273,36 @@ footer a{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   filter: grayscale(100%);
 }
+
+.comunidade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  padding: 50px;
+  margin: 30px auto;
+  background-color: #f6e2d4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  max-width: 90%;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.piscante {
+  animation: piscar 1s infinite; /* Define a animação */
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1; /* Opacidade inicial */
+  }
+  50% {
+    opacity: 0; /* Opacidade no meio da animação */
+  }
+  100% {
+    opacity: 1; /* Opacidade final */
+  }
+}
