@@ -1,4 +1,4 @@
-* {
+* {  /*reset basico */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -120,15 +120,16 @@ button:hover {
 
 .conteiner-principal-textos{
   margin: 25px;
-  padding: 10px 20px;
+  padding: 10px 0px;
 }
 
 .secoes-principais{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: left;
-  padding: 50px;
+  padding: 20px;
   margin: 30px auto;
 }
 
@@ -176,7 +177,7 @@ button:hover {
 
 .images-item img {
   width: 100%;
-  height: auto;
+  height: 230px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   filter: grayscale(100%);
@@ -219,7 +220,6 @@ footer a{
 
 .equipe-objetivo h2 {
   font-family: "Poppins", serif;
-  font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
   font-size: 2rem;
@@ -230,7 +230,6 @@ footer a{
 
 .valores-objetivo h2 {
   font-family: "Poppins", serif;
-  font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
   font-size: 2rem;
@@ -247,9 +246,7 @@ footer a{
   font-size: 1.2rem;
   line-height: 1.5;
   color: #976b48;
-  font-weight: 700;
 }
-
 
 .valor-cards {
   display: flex;
@@ -264,11 +261,13 @@ footer a{
   flex-wrap: wrap;
   width: 25%;
   margin-top: 2%;
+  padding: 2px;
 }
 
 .valor-cards img {
   width: 100%;
-  height: auto;
+  height: 30%;
+  margin-bottom: 8px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   filter: grayscale(100%);
