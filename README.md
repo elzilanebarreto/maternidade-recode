@@ -42,6 +42,36 @@ A estrutura do banco de dados foi projetada para gerenciar a comunidade, permiti
 - Curtida: Registro de interações positivas nos posts.
 - Categoria: Permite classificar os posts por temas.
 
+Relacionamentos:
+
+1️⃣ Usuário → Postagem
+- Um usuário pode criar várias postagens ou nenhuma → (0,N)
+- Cada postagem pertence a um único usuário → (1,1)
+  
+2️⃣ Usuário → Comentário
+- Um usuário pode fazer vários comentários ou nenhum → (0,N)
+- Cada comentário pertence a um único usuário → (1,1)
+
+3️⃣ Usuário → Curtida
+- Um usuário pode curtir várias postagens ou nenhuma → (0,N)
+- Cada curtida pertence a um único usuário → (1,1)
+
+4️⃣ Postagem → Comentário
+- Uma postagem pode ter vários comentários ou nenhum → (0,N)
+- Cada comentário pertence a uma única postagem → (1,1)
+
+5️⃣ Postagem → Curtida
+- Uma postagem pode receber várias curtidas ou nenhuma → (0,N)
+- Cada curtida pertence a uma única postagem (só existe uma unica vez, por postagem) → (1,1)
+
+6️⃣ Categoria → Postagem (Opcional)
+- Uma categoria pode conter várias postagens ou nenhuma → (0,N)
+- Cada postagem pode pertencer a uma única categoria → (0,1) (opcional, pois pode não ter categoria)
+
+Modelo Conceitual:
+![image](https://github.com/user-attachments/assets/3d600eac-37ea-4f72-9a14-2175c1c9eb8b)
+
+___
 
 ## Questionário
 
