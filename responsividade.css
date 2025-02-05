@@ -14,6 +14,10 @@
     .container-header {
         flex-wrap: wrap;
     }
+
+    .submit{
+        margin-left: 120px;
+    }
 }
 
 
@@ -76,4 +80,30 @@
         font-size: 22px;
     }
 
+    .submit{
+        margin-left: 100px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .input{
+        width: 20%;
+    }
+
+    .submit{
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .input{
+        width: 20%;
+    }
+
+    .submit{
+        margin-left: 60px;
+    }
 }
