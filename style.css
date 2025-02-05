@@ -10,7 +10,7 @@ body {
 
 .cabecalho {
   background-color: #cd8054;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
 }
 
 .container-header {
@@ -19,7 +19,12 @@ body {
   justify-content: space-between;
 }
 
-.logo img {
+/* .logo img {
+  max-width: 135px;
+  width: auto;
+} */
+
+.navbar-brand img{
   max-width: 135px;
   width: auto;
 }
