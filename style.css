@@ -10,7 +10,7 @@ body {
 
 .cabecalho {
   background-color: #cd8054;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
 }
 
 .container-header {
@@ -19,7 +19,12 @@ body {
   justify-content: space-between;
 }
 
-.logo img {
+/* .logo img {
+  max-width: 135px;
+  width: auto;
+} */
+
+.navbar-brand img{
   max-width: 135px;
   width: auto;
 }
@@ -306,38 +311,31 @@ footer a{
   }
 }
 
-.container-form{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* max-width: 350px; */
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-  position: relative;
-  width: 40%;
-}
-
-.title {
-  display: flex;
-  position: relative;
-  font-size: 30px;
-  color: #976b48;
-  font-weight: 600;
+  border: 1px solid #ccc;
   justify-content: center;
 }
 
+.title {
+  font-size: 30px;
+  color: #976b48;
+  font-weight: 600;
+}
 
 .message {
   color: rgba(88, 87, 87, 0.822);
   font-size: 18px;
+}
+
+.coluna{
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
 }
 
 /* Tamanho do label */
@@ -348,11 +346,10 @@ footer a{
 
 /* Tamanhos dos inputs */
 .form label .input {
-  width: 100%;
+  /* width: 100%; */
   padding: 10px 10px 20px 10px;
   outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
+  border: none;
 }
 
 /* Faz o label ficar dentro do input */
@@ -383,8 +380,37 @@ footer a{
   font-size: 16px;
   width: 50%;
   cursor: pointer;
+  margin-left: 130px;
 }
 
 .submit:hover {
+  background-color: #cc6200;
+}
+
+#textarea{
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  height: 100px;
+  color: #6a6a6a;
+  padding: 8px;
+  font-size: 18px;
+  resize: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.submit-contato {
+  border: none;
+  outline: none;
+  background-color: #976b48;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  width: 50%;
+  cursor: pointer;
+  margin-left: 65px;
+}
+
+.submit-contato:hover {
   background-color: #cc6200;
 }

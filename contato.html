@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/imagens/logo3.png" type="image/png">
     <title>Maternidade - Rocode</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="responsividade.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,22 +21,35 @@
     <!-- Início do cabeçalho -->
     <header class="cabecalho">
         <!-- Início do container do cabeçalho -->
-        <div class="container-header">
-            <div class="logo">
-                <img class="logo" src="imagens/logo3.png" alt="" srcset="" />
-            </div>
-            <!-- Fim do logo -->
-
-            <!-- Início da barra de menu -->
-            <nav class="navbar">
-                <a href="index.html">Início</a>
-                <a href="desafios.html">Desafios da Maternidade</a>
-                <a href="sobre.html">Sobre Nós</a>
-                <a href="contato.html">Contatos</a>
-            </nav>
-            <!-- Fim da barra de menu -->
-        </div>
+        
         <!-- Fim do container do cabeçalho -->
+
+        <nav class="navbar navbar-expand-lg cabecalho">
+            <div class="container-fluid">
+              <a class="navbar-brand " href="index.html">
+                <img src="imagens/logo3.png" alt="">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="index.html">Início</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="desafios.html">Desafios da Maternidade</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="sobre.html">Sobre Nós</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="contato.html">Contatos</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
     </header>
     <!-- Fim do cabeçalho -->
 
@@ -71,46 +86,44 @@
         </section>
         <!-- Fim da seção do sobre nós -->
 
-        <!-- Início da parte do conteúdo (Hirislayne) -->
-        <div class="conteiner-principal-textos">
-            <section class="secoes-principais">
-                <div class="gravidez-etapas">
-                    <h2 class="subtitulos-principais">
-                        <b>Gravidez</b> etapas e cuidados
-                    </h2>
-                    <div class="divider"></div>
-                    <p>
-                        A gravidez é uma jornada de transformações. Cada etapa traz
-                        sintomas comuns, como náuseas, fadiga e mudanças de humor, que
-                        podem ser aliviados com cuidados simples. Manter uma alimentação
-                        equilibrada, exercícios leves e atenção à saúde mental são
-                        essenciais para garantir o bem-estar da mãe e do bebê. Saiba mais
-                        sobre como cuidar de você em cada fase para uma gestão saudável!
-                    </p>
-                    <button><a href="gravidez">Sintomas e Cuidados</a></button>
-                </div>
-            </section>
+        <!-- Para teste -->
+        <div class="sobre">
 
-                <section class="secoes-principais">
-                    <div class="maternidade">
-                        <h2 class="subtitulos-principais">
-                            <b>Maternidade</b> <br />
-                            primeiros passos
-                        </h2>
-                        <div class="divider"></div>
-                        <p>
-                            A chegada do bebê traz alegrias, mas também muitos desafios. Desde
-                            a amamentação e cuidados com a higiene até o sono e as novas
-                            rotinas, cada detalhe faz parte desse aprendizado. O puerpério
-                            pode ser um período intenso, e contar com apoio emocional faz toda
-                            a diferença para as mães de primeira viagem. Para você, que busca
-                            dicas e orientações para cuidar do seu bebê e de si mesma com mais
-                            confiança.
-                        </p>
-                        <button><a href="maternidade">Dicas e Apoio</a></button>
+            <form class="form">
+
+                <p class="title text-center">Entre em Contato </p>
+                
+                <div class="row">
+
+                    <div class="col-md-12 coluna">
+                        <label>
+                            <input required="" placeholder="" type="text" class="input">
+                            <span>Nome Completo</span>
+                        </label>
                     </div>
-                </section>
+                </div>
+
+                    <div class="row">
+                        <div class="col-md-12 coluna">
+                            <label>
+                                <input required="" placeholder="" type="email" class="input">
+                                <span>E-mail</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    
+                    <textarea name="" id="textarea" placeholder="Deixe sua dúvida"></textarea>
+                        
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <input type="submit" class="submit-contato" value="Enviar">
+                        </div>
+                    </div>
+            </form>
         </div>
+        
         <div class="images-container">
             <div class="multi-banner-images-4">
                 <div class="images-item">
