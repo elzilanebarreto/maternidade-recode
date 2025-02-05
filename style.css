@@ -272,3 +272,119 @@ footer a{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   filter: grayscale(100%);
 }
+
+.comunidade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  padding: 50px;
+  margin: 30px auto;
+  background-color: #f6e2d4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  max-width: 90%;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.piscante {
+  animation: piscar 1s infinite; /* Define a animação */
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1; /* Opacidade inicial */
+  }
+  50% {
+    opacity: 0; /* Opacidade no meio da animação */
+  }
+  100% {
+    opacity: 1; /* Opacidade final */
+  }
+}
+
+.container-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* max-width: 350px; */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  width: 40%;
+}
+
+.title {
+  display: flex;
+  position: relative;
+  font-size: 30px;
+  color: #976b48;
+  font-weight: 600;
+  justify-content: center;
+}
+
+
+.message {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 18px;
+}
+
+/* Tamanho do label */
+.form label {
+  position: relative;
+  font-size: 20px;
+}
+
+/* Tamanhos dos inputs */
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+/* Faz o label ficar dentro do input */
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+/* Transição de abaixar para o users digitar */
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: #976b48;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  width: 50%;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: #cc6200;
+}
