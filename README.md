@@ -3,9 +3,9 @@ ___
 
 ## 🏆 Nº do Squad: 12
 ## 👥 Integrantes:
-1. Elzilane
+1. Elzilane Barrto
 2. Hirislayne Batista Ramos dos Santos
-3. Isabella
+3. Isabela Castro
 
 ___
    
@@ -95,4 +95,9 @@ ___
 ____
 
 ## Próximos Passos
+
+---
+## Slide apresentação
+Slide de apresentação do nosso projeto
+[📂 Baixar Slide](./slide/Projeto_Renascer_Mulher.pdf)
 
