@@ -143,3 +143,8 @@ ____
 
 #### Link de Acesso ao Site: *https://renascer-mulher.vercel.app/*
 
+---
+## Slide apresentação
+Slide de apresentação do nosso projeto
+[📂 Baixar Slide](./slide/Projeto_Renascer_Mulher.pdf)
+
