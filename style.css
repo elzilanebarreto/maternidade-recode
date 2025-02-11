@@ -322,6 +322,7 @@ footer a{
 .form label {
   position: relative;
   font-size: 18px;
+  width: 100%;
 }
 
 .form label .input {
@@ -358,7 +359,21 @@ footer a{
   font-weight: 600;
 }
 
-/* Caixa de mensagem */
+.submit {
+  border: none;
+  background-color: #976b48;
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.submit:hover {
+  background-color: #cc6200;
+}
+
+/*----------- Caixa de mensagem CONTATO----------*/
 #textarea {
   border: 1px solid #aaa;
   border-radius: 8px;
@@ -384,10 +399,7 @@ footer a{
   border-radius: 8px;
   color: #fff;
   font-size: 18px;
-  width: 80%;
-  cursor: pointer;
-  transition: 0.3s ease;
-  margin-top: 10px;
+  margin: 0 auto;
 }
 
 .submit-contato:hover {
