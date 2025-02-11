@@ -56,6 +56,8 @@ body {
   padding: 10px 20px;
 }
 
+
+
 .sobre {
   display: flex;
   justify-content: center;
@@ -78,7 +80,7 @@ body {
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.5;
   color: #976b48;
   font-weight: 700;
@@ -124,8 +126,13 @@ button:hover {
 }
 
 .conteiner-principal-textos{
-  margin: 25px;
-  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .secoes-principais{
@@ -154,39 +161,26 @@ button:hover {
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.5;
   color: #976b48;
   font-weight: 700;
 }
 
-.images-container {
-  background-color: #fffaf7;
-  padding: 20px;
-  margin: 15px;
-  width: 100%;
-}
-
-.multi-banner-images-4 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: white;
-}
-
 .images-item {
   display: flex;
-  flex-wrap: wrap;
-  width: 25%;
+  justify-content: center;
+  align-items: center;
 }
 
 .images-item img {
   width: 100%;
-  height: 230px;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   filter: grayscale(100%);
 }
+
 
 footer{
   background-color: #f0d6bf;
@@ -243,7 +237,7 @@ footer a{
   font-weight: 700;
 }
 
-.valores-objetivo h3 {
+ h3 {
   font-family: "Poppins", serif;
   font-weight: 600;
   font-style: normal;
@@ -257,7 +251,6 @@ footer a{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: white;
   max-width: 600px;
 }
 
@@ -278,25 +271,13 @@ footer a{
   filter: grayscale(100%);
 }
 
-.comunidade {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  padding: 50px;
-  margin: 30px auto;
-  background-color: #f6e2d4;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-  max-width: 90%;
-}
-
 .container {
   max-width: 600px;
 }
 
+
 .piscante {
-  animation: piscar 1s infinite; /* Define a animação */
+  animation: piscar 1s infinite;
 }
 
 @keyframes piscar {
@@ -311,214 +292,104 @@ footer a{
   }
 }
 
+/* Centraliza o formulário na tela */
+.container {
+  height: 100vh;
+}
+
+/* Estilização geral do formulário */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
+  padding: 25px;
+  border-radius: 15px;
   border: 1px solid #ccc;
-  justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
 }
 
+/* Título do formulário */
 .title {
-  font-size: 30px;
+  font-size: 28px;
   color: #976b48;
-  font-weight: 600;
+  font-weight: bold;
 }
 
-.message {
-  color: rgba(88, 87, 87, 0.822);
+/* Campos de entrada estilizados */
+.form label {
+  position: relative;
   font-size: 18px;
 }
 
-.coluna{
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-}
-
-/* Tamanho do label */
-.form label {
-  position: relative;
-  font-size: 20px;
-}
-
-/* Tamanhos dos inputs */
 .form label .input {
-  /* width: 100%; */
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  outline: none;
+  transition: 0.3s ease-in-out;
+  font-size: 16px;
 }
 
-/* Faz o label ficar dentro do input */
+.form label .input:focus {
+  border-color: #976b48;
+  box-shadow: 0px 0px 8px rgba(151, 107, 72, 0.5);
+}
+
+/* Label animado dentro do input */
 .form label .input + span {
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 15px;
-  color: grey;
+  color: #777;
   font-size: 0.9em;
   cursor: text;
   transition: 0.3s ease;
 }
 
-/* Transição de abaixar para o users digitar */
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 30px;
-  font-size: 0.7em;
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: 5px;
+  font-size: 0.75em;
+  color: #976b48;
   font-weight: 600;
 }
 
-.submit {
-  border: none;
-  outline: none;
-  background-color: #976b48;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  width: 50%;
-  cursor: pointer;
-  margin-left: 130px;
-}
-
-.submit:hover {
-  background-color: #cc6200;
-}
-
-#textarea{
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
+/* Caixa de mensagem */
+#textarea {
+  border: 1px solid #aaa;
+  border-radius: 8px;
   height: 100px;
-  color: #6a6a6a;
-  padding: 8px;
-  font-size: 18px;
+  color: #333;
+  padding: 10px;
+  font-size: 16px;
   resize: none;
-  font-family: 'Times New Roman', Times, serif;
+  outline: none;
+  transition: 0.3s ease-in-out;
 }
 
+#textarea:focus {
+  border-color: #976b48;
+  box-shadow: 0px 0px 8px rgba(151, 107, 72, 0.5);
+}
+
+/* Botão de envio */
 .submit-contato {
   border: none;
-  outline: none;
   background-color: #976b48;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 8px;
   color: #fff;
-  font-size: 16px;
-  width: 50%;
+  font-size: 18px;
+  width: 80%;
   cursor: pointer;
-  margin-left: 65px;
+  transition: 0.3s ease;
+  margin-top: 10px;
 }
 
 .submit-contato:hover {
   background-color: #cc6200;
-}
-
-/* Estilo para tablets */
-@media (max-width: 1024px) {
-  .navbar {
-      flex-wrap: wrap;
-      justify-content: center;
-  }
-
-  .images-item {
-      width: 45%;
-  }
-
-  .container-header {
-      flex-wrap: wrap;
-  }
-
-  .submit{
-      margin-left: 120px;
-  }
-}
-
-
-/* Estilo para celulares */
-@media (max-width: 768px) {
-  .navbar a {
-      display: block;
-      margin: 10px 0;
-      text-align: center;
-  }
-
-  .images-container {
-      gap: 10px;
-      padding: 10px;
-  }
-
-  .images-item {
-      width: 100%; 
-  }
-
-  .container-header {
-      flex-direction: column;
-      align-items: center;
-      text-align: end;
-  }
-
-  .logo img {
-      max-width: 150px;
-  }
-
-  button a {
-      font-size: 24px;
-      align-items: center;
-      justify-content: center;
-  }
-
-  .valores-objetivo {
-      padding: 1rem;
-  }
-
-  .valor-cards {
-      display: flex;
-      flex-direction: column;
-      padding: 30px;
-      gap: 20px;
-      align-items: center;
-  }
-
-  .valor-card {
-      width: 80%;
-  }
-
-  .valor-card img {
-      width: 100%;
-      height: 230px;
-      border-radius: 8px;
-  }
-  
-  p {
-      font-size: 22px;
-  }
-
-  .submit{
-      margin-left: 100px;
-  }
-
-}
-
-@media (max-width: 480px) {
-
-  .input{
-      width: 20%;
-  }
-
-  .submit{
-      margin-left: 80px;
-  }
-}
-
-@media (max-width: 400px) {
-
-  .input{
-      width: 20%;
-  }
-
-  .submit{
-      margin-left: 60px;
-  }
 }
