@@ -63,7 +63,12 @@ body {
 .btn.faca-login.btn-primary{
     background-color: #cd8054;
     border: none;
-    font-family: "Poppins", serif;;
+    font-family: "Poppins", serif;
+}
+
+.btn.faca-login.btn-primary a{
+  text-decoration: none;
+  color: #fffaf7;
 }
 
 .card {
