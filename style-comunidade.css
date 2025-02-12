@@ -51,15 +51,11 @@
     height: auto;
   }
   
-  .container-main {
+  .corpo {
     margin: 25px;
     padding: 10px 20px;
   }
   
-body {
-    background-color: #fffaf7;
-}
-
 .btn.faca-login.btn-primary{
     background-color: #cd8054;
     border: none;
