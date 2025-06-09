@@ -18,45 +18,55 @@
 
 <body>
     <!-- Início do cabeçalho -->
-    <header class="cabecalho">
-        
-
+    <header class="header-principal">
+        <a href="index.html" class="logo">
+            <img src="imagens/logo3.png" alt="Logo Comunidade de Mães">
+        </a>
         <nav class="navbar navbar-expand-lg cabecalho">
             <div class="container-fluid">
-              <a class="navbar-brand " href="index.html">
-                <img src="imagens/logo3.png" alt="">
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="index.html">Início</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="desafios.html">Desafios da Maternidade</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="comunidade.html">Comunidade</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="sobre.html">Sobre Nós</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="contato.html">Contatos</a>
-                  </li>
-                </ul>
-              </div>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menu de navegação">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse custom-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="desafios.html">Desafios da Maternidade</a></li>
+                        <li class="nav-item"><a class="nav-link" href="comunidade.html">Comunidade</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre Nós</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contato.html">Contatos</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <!-- Fim do cabeçalho -->
 
-    <!-- Início do banner/Se houver-->
-    <div class="banner">
-        <img src="imagens/Renascer Mulher.png" alt="" srcset="" />
+    <!-- Banner (Carrossel) -->
+<div id="bannerCarousel" class="banner carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="imagens/Renascer Mulher.png" class="d-block w-100" alt="Bem-vinda à Comunidade de Mães" loading="lazy">
+        </div>
+        <div class="carousel-item">
+            <img src="imagens/pregnant-woman-ai-generated-image.jpg" class="d-block w-100" alt="Cuidados na Gravidez" loading="lazy">
+        </div>
+        <div class="carousel-item">
+            <img src="imagens/young-mom-holding-her-baby-air-blank-space.jpg" class="d-block w-100" alt="Primeiros Passos da Maternidade" loading="lazy">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+    </button>
+</div>
     <!-- Fim do banner -->
 
     <!-- Início do conteúdo -->
