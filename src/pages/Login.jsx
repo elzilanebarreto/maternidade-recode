@@ -22,8 +22,8 @@ function Login() {
       .then(response => {
         setMessage(response.data);
         if (response.data.includes('bem-sucedido')) {
-          localStorage.setItem('token', 'dummy-token-123');
-          window.location.href = '/comunidade-login';
+          // Redireciona com o username como parâmetro
+          window.location.href = `/comunidade-login?identifier=${encodeURIComponent(username)}`;
         }
       })
       .catch(error => {

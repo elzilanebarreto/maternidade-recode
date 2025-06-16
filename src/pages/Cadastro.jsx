@@ -45,7 +45,7 @@ function Cadastro() {
       .then(response => {
         setMessage(response.data);
         if (response.data.includes('sucesso')) {
-          window.location.href = '/comunidade';
+          window.location.href = '/comunidade-login';
         }
       })
       .catch(error => {
