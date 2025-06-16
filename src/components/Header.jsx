@@ -110,13 +110,13 @@ function Header() {
                   </span>
                   {showDropdown && (
                     <div className="dropdown-menu" style={{
-                      position: 'absolute',
-                      top: '100%',
-                      right: 0,
-                      backgroundColor: '#fff',
-                      border: '1px solid #ccc',
-                      borderRadius: '5px',
-                      padding: '5px',
+                      position: 'absolute', 
+                      top: '100%', 
+                      right: 0, 
+                      backgroundColor: '#e8c7b4', 
+                      border: '1px solid #cc6200', 
+                      borderRadius: '5px', 
+                      padding: '5px', 
                       zIndex: 1000,
                       display: showDropdown ? 'block' : 'none'
                     }}>
@@ -169,13 +169,13 @@ function Header() {
                   </span>
                   {showDropdown && (
                     <div className="dropdown-menu" style={{
-                      position: 'absolute',
-                      top: '100%',
-                      right: 0,
-                      backgroundColor: '#fff',
-                      border: '1px solid #ccc',
-                      borderRadius: '5px',
-                      padding: '5px',
+                      position: 'absolute', 
+                      top: '100%', 
+                      right: 0, 
+                      backgroundColor: '#e8c7b4', 
+                      border: '1px solid #cc6200', 
+                      borderRadius: '5px', 
+                      padding: '5px', 
                       zIndex: 1000,
                       display: showDropdown ? 'block' : 'none'
                     }}>
