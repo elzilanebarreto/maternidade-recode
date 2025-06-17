@@ -20,14 +20,17 @@ function Login() {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        setMessage(response.data);
-        if (response.data.includes('bem-sucedido')) {
-          // Redireciona com o username como parâmetro
+        console.log('Resposta do servidor:', response.data);
+        const { message, userId } = response.data;
+        setMessage(message);
+        if (message === 'Login bem-sucedido' && userId) {
+          localStorage.setItem('userId', userId);
           window.location.href = `/comunidade-login?identifier=${encodeURIComponent(username)}`;
         }
       })
       .catch(error => {
-        const errorMsg = error.response?.data || error.message || 'Erro desconhecido';
+        console.error('Erro na requisição:', error);
+        const errorMsg = error.response?.data?.message || error.message || 'Erro desconhecido';
         setMessage('Erro ao logar: ' + (typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)));
       });
   };
