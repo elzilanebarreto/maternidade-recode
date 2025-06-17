@@ -1,20 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/style-comunidade.css';
 
-function PostCard({ author, photo, content, attachments, likes, comments, isLoggedIn }) {
-  const [commentInput, setCommentInput] = useState('');
-  const [localComments, setLocalComments] = useState(comments);
+function PostCard({ id, author, photo, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete }) {
   const [localLikes, setLocalLikes] = useState(likes);
+  const [localComments, setLocalComments] = useState(comments);
+  const [commentInput, setCommentInput] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [editContent, setEditContent] = useState(content);
 
-  const handleComment = () => {
-    if (commentInput.trim() && isLoggedIn) {
-      setLocalComments([...localComments, commentInput]);
-      setCommentInput('');
+  useEffect(() => {
+    setLocalLikes(likes);
+    setLocalComments(comments);
+  }, [likes, comments]);
+
+  const handleLike = async () => {
+    if (!isLoggedIn) return;
+    try {
+      const response = await axios.post(`http://localhost:8080/posts/${id}/like`);
+      setLocalLikes(response.data.likes);
+    } catch (error) {
+      console.error('Erro ao curtir:', error);
     }
   };
 
-  const handleLike = () => {
-    if (isLoggedIn) setLocalLikes(localLikes + 1);
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentInput.trim()) return;
+    try {
+      const response = await axios.post(`http://localhost:8080/posts/${id}/comments`, { texto: commentInput });
+      setLocalComments([...localComments, commentInput]);
+      setCommentInput('');
+    } catch (error) {
+      console.error('Erro ao comentar:', error);
+    }
+  };
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    onEdit(id, { conteudo: editContent });
+    setEditMode(false);
   };
 
   return (
@@ -24,26 +49,52 @@ function PostCard({ author, photo, content, attachments, likes, comments, isLogg
           <img src={photo} alt={`${author} foto`} className="user-photo" />
           <span className="user-name">{author}</span>
         </div>
-        <p className="card-text">{content}</p>
-        {attachments && attachments.map((attach, idx) => (
-          <img key={idx} src={attach} alt="Anexo" className="post-attachment img-thumbnail" />
-        ))}
+        {editMode ? (
+          <form onSubmit={handleEditSubmit}>
+            <textarea
+              className="form-control mb-2"
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+            />
+            <button type="submit" className="btn btn-primary btn-sm me-2">Salvar</button>
+            <button type="button" className="btn btn-secondary btn-sm" onClick={() => setEditMode(false)}>Cancelar</button>
+          </form>
+        ) : (
+          <>
+            <p className="card-text">{content}</p>
+            {attachments.length > 0 && (
+              <div className="attachments mb-2">
+                {attachments.map((attach, idx) => (
+                  <img key={idx} src={attach} alt="Anexo" className="post-attachment img-thumbnail" style={{ maxWidth: '100px', marginRight: '10px' }} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
         <div className="post-actions">
           <button className="btn btn-link" onClick={handleLike} disabled={!isLoggedIn}>
             <span className="material-icons">favorite</span> {localLikes}
           </button>
           {isLoggedIn && (
-            <>
+            <form onSubmit={handleCommentSubmit} className="d-flex">
               <input
                 value={commentInput}
                 onChange={(e) => setCommentInput(e.target.value)}
                 placeholder="Comente..."
                 className="form-control d-inline w-50"
               />
-              <button className="btn btn-primary btn-sm ms-2" onClick={handleComment}>Enviar</button>
-            </>
+              <button type="submit" className="btn btn-primary btn-sm ms-2">Enviar</button>
+            </form>
           )}
-          <div className="mt-2">Comentários: {localComments.join(', ')}</div>
+          {localComments.length > 0 && (
+            <div className="mt-2">Comentários: {localComments.join(', ')}</div>
+          )}
+          {canEdit && (
+            <div className="mt-2">
+              <button className="btn btn-warning btn-sm me-2" onClick={() => setEditMode(true)}>Editar</button>
+              <button className="btn btn-danger btn-sm" onClick={() => onDelete(id)}>Excluir</button>
+            </div>
+          )}
         </div>
       </div>
     </div>
