@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import PostCard from "./PostCard";
-import Categories from "./Categories";
-import "../styles/style-comunidade.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PostCard from './PostCard';
+import Categories from './Categories';
+import '../styles/style-comunidade.css';
 
 function ComunidadeContent() {
   const [posts, setPosts] = useState([]);
-  const [novoPost, setNovoPost] = useState({ titulo: "", conteudo: "" });
+  const [novoPost, setNovoPost] = useState({ titulo: '', conteudo: '' });
   const [anexo, setAnexo] = useState(null);
-  const [message, setMessage] = useState("");
-  const [loggedInUserId] = useState(1); // Simula o ID do usuário logado (ajuste conforme necessário)
+  const [message, setMessage] = useState('');
+  const [loggedInUserId, setLoggedInUserId] = useState(() => {
+    return localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId'), 10) : null;
+  });
 
   useEffect(() => {
+    const userIdFromStorage = localStorage.getItem('userId');
+    if (userIdFromStorage && !loggedInUserId) {
+      setLoggedInUserId(parseInt(userIdFromStorage, 10));
+    }
     fetchPosts();
   }, []);
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/posts");
+      const response = await axios.get('http://localhost:8080/posts');
       setPosts(response.data);
     } catch (error) {
-      setMessage("Erro ao carregar posts: " + error.message);
+      setMessage('Erro ao carregar posts: ' + error.message);
     }
   };
 
@@ -35,85 +41,67 @@ function ComunidadeContent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    const user = {
-      id: loggedInUserId,
-      nomeCompleto: "Usuário Exemplo",
-      fotoPerfil: "/default.jpg",
-    }; // Adjust as needed
-    data.append(
-      "post",
-      new Blob([JSON.stringify({ ...novoPost, autor: user })], {
-        type: "application/json",
-      })
-    );
-    if (anexo) {
-      data.append("imagem", anexo);
+    if (!loggedInUserId) {
+      setMessage('Usuário não autenticado! Por favor, faça login novamente.');
+      return;
     }
+    const data = new FormData();
+    const user = { id: loggedInUserId, nomeCompleto: "Maria", fotoPerfil: "/default.jpg" }; // Ajuste dinamicamente
+    data.append('post', new Blob([JSON.stringify({ ...novoPost, autor: user })], { type: 'application/json' }));
+    if (anexo) {
+      data.append('imagem', anexo);
+    }
+
     try {
-      const response = await axios.post("http://localhost:8080/posts", data, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const response = await axios.post('http://localhost:8080/posts', data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
       setPosts([response.data, ...posts]);
-      setNovoPost({ titulo: "", conteudo: "" });
+      setNovoPost({ titulo: '', conteudo: '' });
       setAnexo(null);
-      setMessage("Post criado com sucesso!");
+      setMessage('Post criado com sucesso!');
     } catch (error) {
-      setMessage(
-        "Erro ao criar post: " + error.response?.data || error.message
-      );
+      setMessage('Erro ao criar post: ' + error.response?.data || error.message);
     }
   };
 
-  const handleEdit = async (postId, updatedPost) => {
+  const handleEdit = async (postId, updatedPost, newImage) => {
+    if (!loggedInUserId) {
+      setMessage('Usuário não autenticado!');
+      return;
+    }
     const data = new FormData();
-    const user = {
-      id: loggedInUserId,
-      nomeCompleto: "Usuário Exemplo",
-      fotoPerfil: "/default.jpg",
-    }; // Ajuste conforme necessário
-    data.append(
-      "post",
-      new Blob([JSON.stringify({ ...updatedPost, autor: user })], {
-        type: "application/json",
-      })
-    );
-    if (anexo) {
-      data.append("imagem", anexo);
+    const user = { id: loggedInUserId, nomeCompleto: "Maria", fotoPerfil: "/default.jpg" }; // Ajuste dinamicamente
+    data.append('post', new Blob([JSON.stringify({ ...updatedPost, autor: user })], { type: 'application/json' }));
+    if (newImage) {
+      data.append('imagem', newImage);
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:8080/posts/${postId}`,
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      setPosts(
-        posts.map((post) => (post.id === postId ? response.data : post))
-      );
-      setMessage("Post editado com sucesso!");
+      const response = await axios.put(`http://localhost:8080/posts/${postId}`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setPosts(posts.map(post => post.id === postId ? response.data : post));
+      setMessage('Post editado com sucesso!');
     } catch (error) {
-      setMessage(
-        "Erro ao editar post: " + error.response?.data || error.message
-      );
+      setMessage('Erro ao editar post: ' + error.response?.data || error.message);
     }
   };
 
   const handleDelete = async (postId) => {
+    if (!loggedInUserId) {
+      setMessage('Usuário não autenticado!');
+      return;
+    }
     try {
       await axios.delete(`http://localhost:8080/posts/${postId}`, {
-        params: { userId: loggedInUserId }, // Envie o userId como parâmetro
+        params: { userId: loggedInUserId }
       });
-      setPosts(posts.filter((post) => post.id !== postId));
-      setMessage("Post excluído com sucesso!");
+      setPosts(posts.filter(post => post.id !== postId));
+      setMessage('Post excluído com sucesso!');
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Erro desconhecido ao excluir post";
-      setMessage("Erro ao excluir post: " + errorMessage);
+      const errorMessage = error.response?.data?.message || error.message || 'Erro desconhecido ao excluir post';
+      setMessage('Erro ao excluir post: ' + errorMessage);
     }
   };
 
@@ -145,16 +133,14 @@ function ComunidadeContent() {
                   onChange={handleFileChange}
                   accept="image/*,video/*,image/gif"
                 />
-                <button type="submit" className="btn btn-primary">
-                  Postar
-                </button>
+                <button type="submit" className="btn btn-primary">Postar</button>
                 {anexo && (
                   <div className="attachments-preview mt-2">
                     <img
                       src={URL.createObjectURL(anexo)}
                       alt="Prévia"
                       className="img-thumbnail"
-                      style={{ maxWidth: "100px", marginRight: "10px" }}
+                      style={{ maxWidth: '100px', marginRight: '10px' }}
                     />
                   </div>
                 )}
@@ -166,21 +152,13 @@ function ComunidadeContent() {
             <PostCard
               key={post.id}
               id={post.id}
-              author={post.autor?.nomeCompleto || "Usuário Desconhecido"}
-              photo={
-                post.autor?.fotoPerfil
-                  ? `http://localhost:8080${post.autor.fotoPerfil}`
-                  : "https://picsum.photos/40"
-              }
+              author={post.autor?.nomeCompleto || 'Usuário Desconhecido'}
+              photoUrl={post.autor?.fotoPerfil ? `http://localhost:8080${post.autor.fotoPerfil}` : 'https://picsum.photos/40'}
               content={post.conteudo}
-              attachments={
-                post.imagem
-                  ? [`http://localhost:8080${post.imagem}`]
-                  : ["https://picsum.photos/100"]
-              }
+              attachments={post.imagem ? [`http://localhost:8080${post.imagem}`] : ['https://picsum.photos/100']}
               likes={post.likes || 0}
               comments={post.comments || []}
-              isLoggedIn={true}
+              isLoggedIn={!!loggedInUserId}
               canEdit={post.autor?.id === loggedInUserId}
               onEdit={handleEdit}
               onDelete={handleDelete}
