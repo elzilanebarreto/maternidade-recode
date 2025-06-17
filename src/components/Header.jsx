@@ -121,7 +121,6 @@ function Header() {
                       display: showDropdown ? 'block' : 'none'
                     }}>
                       <p>Olá, {fullName}</p>
-                      <Link to="/editar-perfil" className="dropdown-item">Editar Perfil</Link>
                       <a href="#" className="dropdown-item" onClick={handleLogout}>Logout</a>
                     </div>
                   )}
@@ -178,7 +177,6 @@ function Header() {
                       display: showDropdown ? 'block' : 'none'
                     }}>
                       <p>Olá, {fullName}</p>
-                      <Link to="/editar-perfil" className="dropdown-item">Editar Perfil</Link>
                       <a href="#" className="dropdown-item" onClick={handleLogout}>Logout</a>
                     </div>
                   )}
