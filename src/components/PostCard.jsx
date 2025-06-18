@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/style-comunidade.css';
 
-function PostCard({ id, author, photo, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete }) {
+function PostCard({ id, author, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete }) {
   const [localLikes, setLocalLikes] = useState(likes);
   const [localComments, setLocalComments] = useState(comments);
   const [commentInput, setCommentInput] = useState('');
@@ -28,7 +28,7 @@ function PostCard({ id, author, photo, content, attachments, likes, comments, is
     e.preventDefault();
     if (!commentInput.trim()) return;
     try {
-      const response = await axios.post(`http://localhost:8080/posts/${id}/comments`, { texto: commentInput });
+      await axios.post(`http://localhost:8080/posts/${id}/comments`, { texto: commentInput });
       setLocalComments([...localComments, commentInput]);
       setCommentInput('');
     } catch (error) {
@@ -46,7 +46,7 @@ function PostCard({ id, author, photo, content, attachments, likes, comments, is
     <div className="card mb-3">
       <div className="card-body fixed-width-card">
         <div className="post-header">
-          <img src={photo} alt={`${author} foto`} className="user-photo" />
+          <img src='https://picsum.photos/40' alt={`${author} foto`} className="user-photo" />
           <span className="user-name">{author}</span>
         </div>
         {editMode ? (
