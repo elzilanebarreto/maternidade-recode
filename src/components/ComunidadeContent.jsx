@@ -12,36 +12,37 @@ function ComunidadeContent() {
   const [loggedInUserId, setLoggedInUserId] = useState(() => {
     return localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId'), 10) : null;
   });
-  const [userProfile, setUserProfile] = useState({ fotoPerfil: '/default.jpg', nomeCompleto: 'Usuário' });
+  const [userProfile, setUserProfile] = useState({
+    fotoPerfil: localStorage.getItem('userPhoto') || '/default.jpg',
+    nomeCompleto: localStorage.getItem('userFullName') || 'Usuário'
+  });
 
   useEffect(() => {
     const userIdFromStorage = localStorage.getItem('userId');
-    console.log('User ID from localStorage:', userIdFromStorage); // Depuração
-    if (userIdFromStorage && !loggedInUserId) {
-      setLoggedInUserId(parseInt(userIdFromStorage, 10));
+    console.log('User ID from localStorage:', userIdFromStorage);
+    if (userIdFromStorage) {
+      const userId = parseInt(userIdFromStorage, 10);
+      setLoggedInUserId(userId);
+      fetchUserProfile(userId);
     }
     fetchPosts();
-    if (loggedInUserId) {
-      fetchUserProfile(loggedInUserId);
-    }
-  }, [loggedInUserId]);
+  }, []);
 
   const fetchUserProfile = async (userId) => {
     try {
-      console.log('Buscando foto de perfil para userId:', userId); // Depuração
-      const response = await axios.get(`http://localhost:8080/api/user-photo/${userId}`, {
+      console.log('Buscando foto de perfil para userId:', userId);
+      const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`, {
         headers: { 'Content-Type': 'application/json' }
       });
-      console.log('Resposta da foto de perfil:', response.data); // Depuração
-      const fotoPerfil = response.data.fotoPerfil || '/default.jpg';
-      const nomeCompleto = response.data.nomeCompleto || 'Usuário';
-      setUserProfile({ fotoPerfil, nomeCompleto });
+      console.log('Resposta da foto de perfil:', response.data);
+      const { fotoPerfil, nomeCompleto } = response.data;
+      setUserProfile({ fotoPerfil: fotoPerfil || '/default.jpg', nomeCompleto: nomeCompleto || 'Usuário' });
+      localStorage.setItem('userPhoto', fotoPerfil || '/default.jpg');
+      localStorage.setItem('userFullName', nomeCompleto || 'Usuário');
     } catch (error) {
       console.error('Erro ao carregar foto de perfil:', error.response ? error.response.data : error.message);
-      setUserProfile({ fotoPerfil: '/default.jpg', nomeCompleto: 'Usuário' });
     }
   };
-
   const fetchPosts = async () => {
     try {
       console.log('Buscando postagens em:', 'http://localhost:8080/posts');
@@ -149,12 +150,12 @@ function ComunidadeContent() {
   };
 
   const handleNovoPostChange = (e) => {
-  const { name, value } = e.target;
-  setNovoPost(prev => ({
-    ...prev,
-    [name]: value
-  }));
-};
+    const { name, value } = e.target;
+    setNovoPost(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="container mt-4">
@@ -200,22 +201,28 @@ function ComunidadeContent() {
             </div>
           </div>
           {posts.length > 0 ? (
-            posts.map((post) => (
-              <PostCard
-                key={post.id}
-                id={post.id}
-                author={post.autor?.nomeCompleto || 'Usuário Desconhecido'}
-                photo={post.autor?.fotoPerfil ? `'https://picsum.photos/40'` : '/default.jpg'}
-                content={post.conteudo}
-                attachments={post.imagem ? [`http://localhost:8080${post.imagem}`] : []}
-                likes={post.likes || 0}
-                comments={post.comments || []}
-                isLoggedIn={!!loggedInUserId}
-                canEdit={post.autor?.id === loggedInUserId}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            ))
+            posts.map((post) => {
+              const photo = post.autor?.fotoPerfil
+                ? `http://localhost:8080${post.autor.fotoPerfil}`
+                : 'http://localhost:8080/uploads/default.jpg';
+              console.log('Photo para post', post.id, ':', photo, 'Autor fotoPerfil:', post.autor?.fotoPerfil, 'UserProfile fotoPerfil:', userProfile.fotoPerfil);
+              return (
+                <PostCard
+                  key={post.id}
+                  id={post.id}
+                  author={post.autor?.nomeCompleto || 'Usuário Desconhecido'}
+                  photo={photo}
+                  content={post.conteudo}
+                  attachments={post.imagem ? [`http://localhost:8080${post.imagem}`] : []}
+                  likes={post.likes || 0}
+                  comments={post.comments || []}
+                  isLoggedIn={!!loggedInUserId}
+                  canEdit={post.autor?.id === loggedInUserId}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              );
+            })
           ) : (
             <p className="text-center">Nenhuma postagem disponível.</p>
           )}

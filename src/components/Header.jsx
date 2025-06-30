@@ -12,38 +12,36 @@ function Header() {
   const navigate = useNavigate();
 
   // Função para buscar nome do usuário
-  const fetchUserName = async (id) => {
+  const fetchUserName = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/user/profile?identifier=${encodeURIComponent(id)}`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      const nameParts = (response.data.nomeCompleto || '').trim().split(' ');
-      const firstName = nameParts[0] || id;
+      const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`);
+      const {nomeCompleto } = response.data;
+      const nameParts = (nomeCompleto || '').trim().split(' ');
+      const firstName = nameParts[0] || userId;
+
       setFullName(firstName);
-      // Salva no localStorage
+      // Só atualiza a foto se existir e for diferente da atual
       localStorage.setItem('userFullName', firstName);
-    } catch {
-      setFullName(id);
-      localStorage.setItem('userFullName', id);
+    } catch (error) {
+      console.error('Erro ao carregar perfil:', error);
+      setFullName(userId);
     }
   };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const urlIdentifier = params.get('identifier');
-    if (urlIdentifier) {
+    const storedUserId = localStorage.getItem('userId');
+    
+    if (storedUserId) {
       setIsLoggedIn(true);
-      localStorage.setItem('userIdentifier', urlIdentifier);
+      fetchUserName(storedUserId);
+    } else if (urlIdentifier) {
+      setIsLoggedIn(true);
       fetchUserName(urlIdentifier);
     } else {
-      const storedIdentifier = localStorage.getItem('userIdentifier');
-      if (storedIdentifier) {
-        setIsLoggedIn(true);
-        fetchUserName(storedIdentifier); // sempre busca o nome atualizado
-      } else {
-        setIsLoggedIn(false);
-        setFullName('');
-      }
+      setIsLoggedIn(false);
+      setFullName('');
     }
   }, [location.search]);
 

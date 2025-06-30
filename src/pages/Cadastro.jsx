@@ -18,40 +18,48 @@ function Cadastro() {
   });
   const [message, setMessage] = useState('');
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formDataToSend = new FormData();
+
+    // Adiciona campos do usuário como JSON
+    formDataToSend.append("user", JSON.stringify({
+      nomeCompleto: formData.nomeCompleto,
+      username: formData.username,
+      senha: formData.senha,
+      email: formData.email,
+      dataNascimento: formData.dataNascimento
+    }));
+
+    // Adiciona o arquivo da foto (se existir)
+    if (formData.fotoPerfil instanceof File) {
+      formDataToSend.append("fotoPerfil", formData.fotoPerfil);
+    }
+
+    try {
+      await axios.post(
+        "http://localhost:8080/api/register",
+        formDataToSend,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      setMessage('Cadastro realizado com sucesso!');
+    } catch (error) {
+      setMessage('Erro ao cadastrar: ' + (error.response?.data || error.message));
+    }
+  };
+
+  // Corrija o handleChange para o campo de arquivo:
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-    if (type === 'checkbox') {
+    if (type === 'file') {
+      setFormData({ ...formData, [name]: files[0] });
+    } else if (type === 'checkbox') {
       setFormData({ ...formData, [name]: checked });
-    } else if (type === 'file') {
-      setFormData({ ...formData, [name]: files[0] ? files[0].name : null });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const dataToSend = {
-      nomeCompleto: formData.nomeCompleto,
-      username: formData.username,
-      senha: formData.senha,
-      email: formData.email,
-      dataNascimento: formData.dataNascimento,
-      fotoPerfil: formData.fotoPerfil
-    };
-    axios.post('http://localhost:8080/api/register', dataToSend, {
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        setMessage(response.data);
-        if (response.data.includes('sucesso')) {
-          window.location.href = '/comunidade-login';
-        }
-      })
-      .catch(error => {
-        setMessage('Erro ao cadastrar: ' + (error.response?.data || error.message));
-      });
-  };
 
   return (
     <>
