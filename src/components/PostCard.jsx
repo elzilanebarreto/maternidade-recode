@@ -2,17 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/style-comunidade.css';
 
-function PostCard({ id, author, photo, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete }) {
+function PostCard({ id, author, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete, photo }) {
+  console.log('Renderizando foto para', author, ':', photo);
   const [localLikes, setLocalLikes] = useState(likes);
   const [localComments, setLocalComments] = useState(comments);
   const [commentInput, setCommentInput] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [editContent, setEditContent] = useState(content);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     setLocalLikes(likes);
     setLocalComments(comments);
   }, [likes, comments]);
+
+  const handleImageError = (e) => {
+    console.log('Erro ao carregar imagem:', e.target.src);
+    setImgError(true);
+    e.target.src = 'https://picsum.photos/40';
+  };
 
   const handleLike = async () => {
     if (!isLoggedIn) return;
@@ -28,7 +36,7 @@ function PostCard({ id, author, photo, content, attachments, likes, comments, is
     e.preventDefault();
     if (!commentInput.trim()) return;
     try {
-      const response = await axios.post(`http://localhost:8080/posts/${id}/comments`, { texto: commentInput });
+      await axios.post(`http://localhost:8080/posts/${id}/comments`, { texto: commentInput });
       setLocalComments([...localComments, commentInput]);
       setCommentInput('');
     } catch (error) {
@@ -43,10 +51,15 @@ function PostCard({ id, author, photo, content, attachments, likes, comments, is
   };
 
   return (
-    <div className="card mb-3">
+      <div className="card mb-3">
       <div className="card-body fixed-width-card">
         <div className="post-header">
-          <img src={photo} alt={`${author} foto`} className="user-photo" />
+          <img 
+            src={imgError || !photo ? 'https://picsum.photos/40' : photo} 
+            alt={`${author} foto`} 
+            className="user-photo" 
+            onError={handleImageError} 
+          />
           <span className="user-name">{author}</span>
         </div>
         {editMode ? (

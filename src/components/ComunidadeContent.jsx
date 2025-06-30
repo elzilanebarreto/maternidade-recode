@@ -12,20 +12,37 @@ function ComunidadeContent() {
   const [loggedInUserId, setLoggedInUserId] = useState(() => {
     return localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId'), 10) : null;
   });
-  const [userProfile, setUserProfile] = useState(null); // Estado para o perfil do usuário
+  const [userProfile, setUserProfile] = useState({
+    fotoPerfil: localStorage.getItem('userPhoto') || '/default.jpg',
+    nomeCompleto: localStorage.getItem('userFullName') || 'Usuário'
+  });
 
   useEffect(() => {
     const userIdFromStorage = localStorage.getItem('userId');
     console.log('User ID from localStorage:', userIdFromStorage);
-    if (userIdFromStorage && !loggedInUserId) {
-      setLoggedInUserId(parseInt(userIdFromStorage, 10));
+    if (userIdFromStorage) {
+      const userId = parseInt(userIdFromStorage, 10);
+      setLoggedInUserId(userId);
+      fetchUserProfile(userId);
     }
     fetchPosts();
-    if (loggedInUserId) {
-      fetchUserProfile(loggedInUserId);
-    }
-  }, [loggedInUserId]);
+  }, []);
 
+  const fetchUserProfile = async (userId) => {
+    try {
+      console.log('Buscando foto de perfil para userId:', userId);
+      const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      console.log('Resposta da foto de perfil:', response.data);
+      const { fotoPerfil, nomeCompleto } = response.data;
+      setUserProfile({ fotoPerfil: fotoPerfil || '/default.jpg', nomeCompleto: nomeCompleto || 'Usuário' });
+      localStorage.setItem('userPhoto', fotoPerfil || '/default.jpg');
+      localStorage.setItem('userFullName', nomeCompleto || 'Usuário');
+    } catch (error) {
+      console.error('Erro ao carregar foto de perfil:', error.response ? error.response.data : error.message);
+    }
+  };
   const fetchPosts = async () => {
     try {
       console.log('Buscando postagens em:', 'http://localhost:8080/posts');
@@ -40,49 +57,21 @@ function ComunidadeContent() {
     }
   };
 
-  const fetchUserProfile = async (userId) => {
-    try {
-      console.log('Buscando foto de perfil para userId:', userId);
-      const response = await axios.get(`http://localhost:8080/api/user-photo/${userId}`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      console.log('Resposta da foto de perfil (bruta):', response.data);
-      // Ajuste para extrair corretamente a fotoPerfil da resposta
-      const fotoPerfil = response.data.fotoPerfil || response.data['fotoPerfil'] || '/default.jpg';
-      const nomeCompleto = response.data.nomeCompleto || response.data['nomeCompleto'] || 'Usuário';
-      setUserProfile({ fotoPerfil, nomeCompleto });
-      console.log('Foto de perfil extraída:', fotoPerfil);
-    } catch (error) {
-      console.error('Erro ao carregar foto de perfil:', error.response ? error.response.data : error.message);
-      setUserProfile({ fotoPerfil: '/default.jpg', nomeCompleto: 'Usuário' }); // Fallback
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNovoPost({ ...novoPost, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    setAnexo(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!loggedInUserId) {
       setMessage('Usuário não autenticado! Por favor, faça login novamente.');
       return;
     }
-    // Validação de título e conteúdo
     if (!novoPost.titulo.trim() || !novoPost.conteudo.trim()) {
       setMessage('Por favor, preencha tanto o título quanto o conteúdo.');
       return;
     }
     const data = new FormData();
-    const user = { 
-      id: loggedInUserId, 
-      nomeCompleto: userProfile?.nomeCompleto || 'Usuário', 
-      fotoPerfil: userProfile?.fotoPerfil || '/default.jpg' 
+    const user = {
+      id: loggedInUserId,
+      nomeCompleto: userProfile?.nomeCompleto || 'Usuário',
+      fotoPerfil: userProfile?.fotoPerfil || '/default.jpg'
     };
     data.append('post', new Blob([JSON.stringify({ ...novoPost, autor: user })], { type: 'application/json' }));
     if (anexo) {
@@ -97,6 +86,7 @@ function ComunidadeContent() {
       setNovoPost({ titulo: '', conteudo: '' });
       setAnexo(null);
       setMessage('Post criado com sucesso!');
+      if (loggedInUserId) fetchUserProfile(loggedInUserId); // Atualiza o perfil
     } catch (error) {
       setMessage('Erro ao criar post: ' + error.response?.data || error.message);
     }
@@ -112,10 +102,10 @@ function ComunidadeContent() {
       return;
     }
     const data = new FormData();
-    const user = { 
-      id: loggedInUserId, 
-      nomeCompleto: userProfile?.nomeCompleto || 'Usuário', 
-      fotoPerfil: userProfile?.fotoPerfil || '/default.jpg' 
+    const user = {
+      id: loggedInUserId,
+      nomeCompleto: userProfile?.nomeCompleto || 'Usuário',
+      fotoPerfil: userProfile?.fotoPerfil || '/default.jpg'
     };
     data.append('post', new Blob([JSON.stringify({ ...updatedPost, autor: user })], { type: 'application/json' }));
     if (newImage) {
@@ -150,6 +140,23 @@ function ComunidadeContent() {
     }
   };
 
+  // Função para lidar com a seleção de arquivos
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setAnexo(e.target.files[0]);
+    } else {
+      setAnexo(null);
+    }
+  };
+
+  const handleNovoPostChange = (e) => {
+    const { name, value } = e.target;
+    setNovoPost(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -162,14 +169,14 @@ function ComunidadeContent() {
                   className="form-control mb-2"
                   name="titulo"
                   value={novoPost.titulo}
-                  onChange={handleChange}
+                  onChange={handleNovoPostChange}
                   placeholder="Título do post"
                 />
                 <textarea
                   className="form-control mb-2"
                   name="conteudo"
                   value={novoPost.conteudo}
-                  onChange={handleChange}
+                  onChange={handleNovoPostChange}
                   placeholder="Escreva algo..."
                 />
                 <input
@@ -194,22 +201,28 @@ function ComunidadeContent() {
             </div>
           </div>
           {posts.length > 0 ? (
-            posts.map((post) => (
-              <PostCard
-                key={post.id}
-                id={post.id}
-                author={post.autor?.nomeCompleto || 'Usuário Desconhecido'}
-                photo={post.autor?.fotoPerfil ? `http://localhost:8080${post.autor.fotoPerfil}` : 'https://picsum.photos/40'}
-                content={post.conteudo}
-                attachments={post.imagem ? [`http://localhost:8080${post.imagem}`] : []}
-                likes={post.likes || 0}
-                comments={post.comments || []}
-                isLoggedIn={!!loggedInUserId}
-                canEdit={post.autor?.id === loggedInUserId}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            ))
+            posts.map((post) => {
+              const photo = post.autor?.fotoPerfil
+                ? `http://localhost:8080${post.autor.fotoPerfil}`
+                : 'http://localhost:8080/uploads/default.jpg';
+              console.log('Photo para post', post.id, ':', photo, 'Autor fotoPerfil:', post.autor?.fotoPerfil, 'UserProfile fotoPerfil:', userProfile.fotoPerfil);
+              return (
+                <PostCard
+                  key={post.id}
+                  id={post.id}
+                  author={post.autor?.nomeCompleto || 'Usuário Desconhecido'}
+                  photo={photo}
+                  content={post.conteudo}
+                  attachments={post.imagem ? [`http://localhost:8080${post.imagem}`] : []}
+                  likes={post.likes || 0}
+                  comments={post.comments || []}
+                  isLoggedIn={!!loggedInUserId}
+                  canEdit={post.autor?.id === loggedInUserId}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              );
+            })
           ) : (
             <p className="text-center">Nenhuma postagem disponível.</p>
           )}
