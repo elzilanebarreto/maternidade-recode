@@ -25,13 +25,19 @@ function Login() {
         setMessage(message);
         if (message === 'Login bem-sucedido' && userId) {
           localStorage.setItem('userId', userId);
-          window.location.href = `/comunidade-login?identifier=${encodeURIComponent(username)}`;
-        }
-      })
-      .catch(error => {
-        console.error('Erro na requisição:', error);
-        const errorMsg = error.response?.data?.message || error.message || 'Erro desconhecido';
-        setMessage('Erro ao logar: ' + (typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)));
+          // Busque e salve o nome completo
+          axios.get(`http://localhost:8080/users/user-photo/${userId}`)
+            .then(resp => {
+              const { nomeCompleto } = resp.data;
+              const firstName = nomeCompleto ? nomeCompleto.split(' ')[0] : '';
+              localStorage.setItem('userFullName', firstName);
+              window.location.href = `/comunidade-login?identifier=${encodeURIComponent(username)}`;
+            })
+            .catch(() => {
+              window.location.href = `/comunidade-login?identifier=${encodeURIComponent(username)}`;
+            });
+
+        };
       });
   };
 
@@ -98,6 +104,6 @@ function Login() {
       <Footer />
     </>
   );
-}
+};
 
 export default Login;
