@@ -2,20 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/style-comunidade.css";
 
-function PostCard({
-  id,
-  author,
-  content,
-  attachments,
-  likes,
-  comments,
-  isLoggedIn,
-  canEdit,
-  onEdit,
-  onDelete,
-  photo,
-}) {
-  console.log("Renderizando foto para", author, ":", photo);
+function PostCard({ id, author, content, attachments, likes, comments, isLoggedIn, canEdit, onEdit, onDelete, photo }) {
   const [localLikes, setLocalLikes] = useState(likes);
   const [localComments, setLocalComments] = useState(comments);
   const [commentInput, setCommentInput] = useState("");
@@ -29,48 +16,56 @@ function PostCard({
   }, [likes, comments]);
 
   const handleImageError = (e) => {
-    console.log("Erro ao carregar imagem:", e.target.src);
+    console.log('Erro ao carregar imagem:', e.target.src);
     setImgError(true);
-    e.target.src = "https://picsum.photos/40";
+    e.target.src = 'https://picsum.photos/40';
   };
 
-  const handleLike = async () => {
-    if (!isLoggedIn) return;
-    try {
-      const userId = localStorage.getItem("userId");
-      const response = await axios.post(
-        `http://localhost:8080/posts/${id}/like`,
-        { userId }
-      );
-      setLocalLikes(response.data); // Atualiza likes com o valor retornado
-    } catch (error) {
-      alert(error.response?.data || "Erro ao curtir");
-      console.error("Erro ao curtir:", error);
-    }
-  };
+const handleLike = async () => {
+  if (!isLoggedIn) return;
+  const userId = localStorage.getItem("userId");
+  if (!userId || isNaN(Number(userId)) || Number(userId) <= 0) {
+    alert("Você precisa estar logado para curtir.");
+    return;
+  }
+  try {
+    const response = await axios.post(
+      `http://localhost:8080/posts/${id}/like`,
+      { userId }
+    );
+    setLocalLikes(response.data);
+  } catch (error) {
+    alert(error.response?.data || "Erro ao curtir.");
+  }
+};
 
-  const handleCommentSubmit = async (e) => {
-    e.preventDefault();
-    if (!commentInput.trim()) return;
-    try {
-      const userId = localStorage.getItem("userId");
-      await axios.post("http://localhost:8080/comentarios", {
-        texto: commentInput,
-        post: { id: id },
-        autor: { id: userId },
-      });
-      setLocalComments([...localComments, commentInput]);
-      setCommentInput("");
-    } catch (error) {
-      console.error("Erro ao comentar:", error);
-    }
-  };
+const handleCommentSubmit = async (e) => {
+  e.preventDefault();
+  if (!commentInput.trim()) return;
+  const userId = localStorage.getItem("userId");
+if (!userId || isNaN(Number(userId)) || Number(userId) <= 0) {
+  alert("Você precisa estar logado para comentar/curtir.");
+  return;
+}
+  try {
+    await axios.post("http://localhost:8080/comentarios", {
+      texto: commentInput,
+      post: { id: id },
+      autor: { id: userId },
+    });
+    setLocalComments([...localComments, commentInput]);
+    setCommentInput("");
+  } catch (error) {
+    alert(error.response?.data || "Erro ao comentar.");
+  }
+};
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
     onEdit(id, { conteudo: editContent });
     setEditMode(false);
   };
+
 
   return (
     <div className="card mb-3">

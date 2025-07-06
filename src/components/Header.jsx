@@ -1,49 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import logo from '../assets/logo3.png';
-import axios from 'axios';
-import '../styles/style-header.css';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/style-header.css";
+import logo from "../assets/logo3.png"; // ajuste se necessário
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Função para buscar nome do usuário
+  // Busca nome do usuário pelo userId salvo
   const fetchUserName = async (userId) => {
     try {
       const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`);
-      const {nomeCompleto } = response.data;
-      const nameParts = (nomeCompleto || '').trim().split(' ');
+      const { nomeCompleto } = response.data;
+      const nameParts = (nomeCompleto || "").trim().split(" ");
       const firstName = nameParts[0] || userId;
-
       setFullName(firstName);
-      // Só atualiza a foto se existir e for diferente da atual
-      localStorage.setItem('userFullName', firstName);
+      localStorage.setItem("userFullName", firstName);
     } catch (error) {
-      console.error('Erro ao carregar perfil:', error);
+      console.error("Erro ao carregar perfil:", error);
       setFullName(userId);
     }
   };
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const urlIdentifier = params.get('identifier');
-    const storedUserId = localStorage.getItem('userId');
-    
-    if (storedUserId) {
+    // Sempre checa o localStorage, não só a URL
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId && !isNaN(Number(storedUserId))) {
       setIsLoggedIn(true);
       fetchUserName(storedUserId);
-    } else if (urlIdentifier) {
-      setIsLoggedIn(true);
-      fetchUserName(urlIdentifier);
     } else {
       setIsLoggedIn(false);
-      setFullName('');
+      setFullName("");
     }
-  }, [location.search]);
+    // Observa mudanças no localStorage (tab/window diferente)
+    const onStorage = () => {
+      const storedUserId = localStorage.getItem("userId");
+      if (!storedUserId) {
+        setIsLoggedIn(false);
+        setFullName("");
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [location]);
 
   const handleProfileClick = () => {
     setShowDropdown(!showDropdown);
@@ -51,11 +54,13 @@ function Header() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setFullName('');
+    setFullName("");
     setShowDropdown(false);
-    localStorage.removeItem('userIdentifier');
-    localStorage.removeItem('userFullName');
-    navigate('/login');
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userFullName");
+    // Redireciona para login
+    navigate("/login");
+    // window.location.reload(); // Alternativamente, recarregue a página
   };
 
   return (

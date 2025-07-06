@@ -19,22 +19,18 @@ function ComunidadeContent() {
 
   useEffect(() => {
     const userIdFromStorage = localStorage.getItem('userId');
-    console.log('User ID from localStorage:', userIdFromStorage);
     if (userIdFromStorage) {
       const userId = parseInt(userIdFromStorage, 10);
       setLoggedInUserId(userId);
       fetchUserProfile(userId);
     }
     fetchPosts();
+    // eslint-disable-next-line
   }, []);
 
   const fetchUserProfile = async (userId) => {
     try {
-      console.log('Buscando foto de perfil para userId:', userId);
-      const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      console.log('Resposta da foto de perfil:', response.data);
+      const response = await axios.get(`http://localhost:8080/users/user-photo/${userId}`);
       const { fotoPerfil, nomeCompleto } = response.data;
       setUserProfile({ fotoPerfil: fotoPerfil || '/default.jpg', nomeCompleto: nomeCompleto || 'Usuário' });
       localStorage.setItem('userPhoto', fotoPerfil || '/default.jpg');
@@ -43,16 +39,12 @@ function ComunidadeContent() {
       console.error('Erro ao carregar foto de perfil:', error.response ? error.response.data : error.message);
     }
   };
+
   const fetchPosts = async () => {
     try {
-      console.log('Buscando postagens em:', 'http://localhost:8080/posts');
-      const response = await axios.get('http://localhost:8080/posts', {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      console.log('Postagens recebidas:', response.data);
+      const response = await axios.get('http://localhost:8080/posts');
       setPosts(response.data);
     } catch (error) {
-      console.error('Erro ao carregar postagens:', error.response ? error.response.data : error.message);
       setMessage('Erro ao carregar postagens: ' + (error.response?.data?.message || error.message));
     }
   };
@@ -86,9 +78,9 @@ function ComunidadeContent() {
       setNovoPost({ titulo: '', conteudo: '' });
       setAnexo(null);
       setMessage('Post criado com sucesso!');
-      if (loggedInUserId) fetchUserProfile(loggedInUserId); // Atualiza o perfil
+      if (loggedInUserId) fetchUserProfile(loggedInUserId);
     } catch (error) {
-      setMessage('Erro ao criar post: ' + error.response?.data || error.message);
+      setMessage('Erro ao criar post: ' + (error.response?.data || error.message));
     }
   };
 
@@ -119,7 +111,7 @@ function ComunidadeContent() {
       setPosts(posts.map(post => post.id === postId ? response.data : post));
       setMessage('Post editado com sucesso!');
     } catch (error) {
-      setMessage('Erro ao editar post: ' + error.response?.data || error.message);
+      setMessage('Erro ao editar post: ' + (error.response?.data || error.message));
     }
   };
 
@@ -140,7 +132,6 @@ function ComunidadeContent() {
     }
   };
 
-  // Função para lidar com a seleção de arquivos
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setAnexo(e.target.files[0]);
@@ -202,10 +193,11 @@ function ComunidadeContent() {
           </div>
           {posts.length > 0 ? (
             posts.map((post) => {
+              // Corrigido: SEMPRE pega a foto do autor do post!
               const photo = post.autor?.fotoPerfil
                 ? `http://localhost:8080${post.autor.fotoPerfil}`
                 : 'http://localhost:8080/uploads/default.jpg';
-              console.log('Photo para post', post.id, ':', photo, 'Autor fotoPerfil:', post.autor?.fotoPerfil, 'UserProfile fotoPerfil:', userProfile.fotoPerfil);
+
               return (
                 <PostCard
                   key={post.id}
