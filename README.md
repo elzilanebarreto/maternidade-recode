@@ -8,6 +8,7 @@ ___
 1. Elzilane Cardoso Barreto
 2. Hirislayne Batista Ramos dos Santos
 3. Isabella Castro Silva de Aguiar
+4. Fernanda
 
 ___
    
