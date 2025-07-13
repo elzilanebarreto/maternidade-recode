@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PostCard from './PostCard';
-import Categories from './Categories';
+//import Categories from './Categories';
 import '../styles/style-comunidade.css';
 
 function ComunidadeContent() {
@@ -25,7 +25,6 @@ function ComunidadeContent() {
       fetchUserProfile(userId);
     }
     fetchPosts();
-    // eslint-disable-next-line
   }, []);
 
   const fetchUserProfile = async (userId) => {
@@ -218,9 +217,6 @@ function ComunidadeContent() {
           ) : (
             <p className="text-center">Nenhuma postagem disponível.</p>
           )}
-        </div>
-        <div className="col-md-4">
-          <Categories />
         </div>
       </div>
     </div>

@@ -6,138 +6,359 @@
 
 .card {
   border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
 }
 
 .fixed-width-card {
-  width: 900px;
-  margin-bottom: 20px;
+  width: 700px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .user-photo {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #f0f0f0;
 }
 
 .user-name {
-  font-weight: bold;
+  font-weight: 600;
   color: #976b48;
+  font-size: 15px;
+}
+
+.post-content {
+  margin-bottom: 16px;
+}
+
+.card-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+  color: #333;
+  font-size: 15px;
+}
+
+/* Imagens dos posts */
+.attachments {
+  margin: 16px 0;
+  width: 100%;
 }
 
 .post-attachment {
+  width: 100%;
   max-width: 100%;
-  margin-top: 10px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  max-height: 450px;
+  display: block;
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
 
+/* Preview de imagens no formulário */
+.attachments-preview {
+  margin-top: 12px;
+}
+
+.attachments-preview .img-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Ações do post */
 .post-actions {
-  margin-top: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
 }
 
 .post-actions .btn-link {
   color: #cd8054;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  margin-right: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .post-actions .btn-link:hover {
   color: #a55a3a;
+  background-color: #f8f9fa;
 }
 
-.comment-section {
+/* Formulário de comentário */
+.comment-form {
   display: flex;
-  align-items: center;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: flex-start;
+}
+
+.comment-input {
+  flex: 1;
+  min-width: 0;
+  border-radius: 20px;
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.comment-input:focus {
+  border-color: #cd8054;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(205, 128, 84, 0.1);
+}
+
+/* Seção de comentários */
+.comments-section {
+  margin-top: 12px;
+}
+
+.comments-section h6 {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .comment {
   display: flex;
-  align-items: center;
-  margin-top: 5px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.comment-author {
+  font-weight: 600;
   color: #976b48;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.comment-content {
+  word-break: break-word;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Controles de edição */
+.edit-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.edit-form {
+  width: 100%;
+}
+
+.edit-form textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.edit-form textarea:focus {
+  border-color: #cd8054;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(205, 128, 84, 0.1);
+}
+
+/* Botões */
+.btn {
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary {
   background-color: #cd8054;
-  border-color: #cd8054;
+  color: white;
 }
 
 .btn-primary:hover {
   background-color: #a55a3a;
-  border-color: #a55a3a;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
 }
 
 .btn-warning {
   background-color: #f0c14b;
-  border-color: #f0c14b;
+  color: #212529;
 }
 
 .btn-warning:hover {
   background-color: #e0a82e;
-  border-color: #e0a82e;
 }
 
 .btn-danger {
   background-color: #dc3545;
-  border-color: #dc3545;
+  color: white;
 }
 
 .btn-danger:hover {
   background-color: #c82333;
-  border-color: #c82333;
 }
 
-.btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
 }
 
-.btn-success:hover {
-  background-color: #218838;
-  border-color: #218838;
+/* Formulários */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
 }
 
-.attachments-preview img {
-  max-width: 100px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.list-group-item {
-  background-color: #f6e2d4;
-  border: none;
-  margin-bottom: 5px;
-  border-radius: 5px;
+.form-control:focus {
+  border-color: #cd8054;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(205, 128, 84, 0.1);
 }
 
 /* Responsividade */
-@media (max-width: 991px) {
+@media (max-width: 768px) {
   .container {
-    padding: 10px;
-  }
-
-  .user-photo {
-    width: 30px;
-    height: 30px;
-  }
-
-  .post-attachment {
-    max-width: 100%;
+    padding: 12px;
   }
 
   .fixed-width-card {
     width: 100%;
-    max-width: 900px;
+    max-width: 700px;
+    padding: 16px;
   }
 
-  .col-md-4 {
-    margin-top: 20px;
+  .post-attachment {
+    max-height: 350px;
+  }
+
+  .user-photo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .comment-form {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comment-input {
+    border-radius: 8px;
+  }
+
+  .edit-controls {
+    flex-direction: column;
+  }
+
+  .edit-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 8px;
+  }
+
+  .fixed-width-card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .post-attachment {
+    max-height: 300px;
+  }
+
+  .user-photo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-name {
+    font-size: 14px;
+  }
+
+  .card-text {
+    font-size: 14px;
+  }
+
+  .comment {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .attachments-preview .img-thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fixed-width-card {
+    padding: 10px;
+  }
+
+  .post-attachment {
+    max-height: 250px;
+  }
+
+  .user-photo {
+    width: 32px;
+    height: 32px;
   }
 }
